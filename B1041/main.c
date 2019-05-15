@@ -4,6 +4,8 @@
 // 1041 考试座位号 (15 point(s))
 // https://pintia.cn/problem-sets/994805260223102976/problems/994805281567916032
 
+// 总结：这里利用了索引来搜索到对应的座位号。
+
 struct info {
     long ticketNumber;
     int examTestNumber;
