@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// A1011: World Cup Betting
+// <https://pintia.cn/problem-sets/994805342720868352/problems/994805504927186944>
 int main() {
     char result[3] = {'W', 'T', 'L'};
     float number[3] = {0};
