@@ -11,21 +11,8 @@
 // +3.1415926E-01
 // -3.1415926E-0005
 
-/**
-* Parse exponent.
-*/
-int parseExp(char number[5]) {
-    char *current = number;
-    int exp = 0;
-    while(*current != '\0') {
-        exp = exp * 10 + (*current++ - '0');
-    }
-
-    return exp;
-}
-
 int main() {
-    char number[1100] = {0};
+    char number[10001] = {0};
     scanf("%s", number);
 
     // Get string length
