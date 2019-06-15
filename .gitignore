@@ -6,4 +6,9 @@
 bin/
 obj/
 
+.project
+.classpath
+.settings/
+
 *.workspace
+/.metadata/
