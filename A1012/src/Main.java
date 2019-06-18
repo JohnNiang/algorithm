@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -5,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 /**
  * A1012: The Best Rank
@@ -16,58 +20,100 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		try (Scanner sc = new Scanner(System.in)) {
-			int N = sc.nextInt();
-			int M = sc.nextInt();
 
-			List<Student> students = new ArrayList<>();
+		FastReader reader = new FastReader();
+		int N = reader.nextInt();
+		int M = reader.nextInt();
 
-			for (int i = 0; i < N; i++) {
-				Student student = new Student();
-				student.number = sc.next();
-				student.c = sc.nextInt();
-				student.m = sc.nextInt();
-				student.e = sc.nextInt();
-				student.a = (student.c + student.m + student.e) / 3;
-				students.add(student);
+		List<Student> students = new ArrayList<>();
+
+		for (int i = 0; i < N; i++) {
+			Student student = new Student();
+			student.number = reader.next();
+			student.c = reader.nextInt();
+			student.m = reader.nextInt();
+			student.e = reader.nextInt();
+			student.a = (student.c + student.m + student.e) / 3;
+			students.add(student);
+		}
+
+		// Sort
+		students.sort(cSort());
+		Map<String, Integer> cRankMap = getRankMap(students);
+
+		students.sort(mSort());
+		Map<String, Integer> mRankMap = getRankMap(students);
+
+		students.sort(eSort());
+		Map<String, Integer> eRankMap = getRankMap(students);
+
+		students.sort(aSort());
+		Map<String, Integer> aRankMap = getRankMap(students);
+
+		for (int i = 0; i < M; i++) {
+			String number = reader.next();
+			Integer cRank = cRankMap.get(number);
+			if (cRank == null) {
+				System.out.println("N/A");
+				break;
 			}
 
-			// Sort
-			students.sort(cSort());
-			Map<String, Integer> cRankMap = getRankMap(students);
+			int mRank = mRankMap.get(number);
+			int eRank = eRankMap.get(number);
+			int aRank = aRankMap.get(number);
 
-			students.sort(mSort());
-			Map<String, Integer> mRankMap = getRankMap(students);
+			if (eRank < mRank) {
+				System.out.println((eRank + 1) + " E");
+			} else if (mRank < cRank) {
+				System.out.println((mRank + 1) + " M");
+			} else if (cRank < aRank) {
+				System.out.println((cRank + 1) + " C");
+			} else {
+				System.out.println((aRank + 1) + " A");
+			}
+		}
 
-			students.sort(eSort());
-			Map<String, Integer> eRankMap = getRankMap(students);
+	}
 
-			students.sort(aSort());
-			Map<String, Integer> aRankMap = getRankMap(students);
+	static class FastReader {
+		BufferedReader br;
+		StringTokenizer st;
 
-			for (int i = 0; i < M; i++) {
-				String number = sc.next();
-				Integer cRank = cRankMap.get(number);
-				if (cRank == null) {
-					System.out.println("N/A");
-					break;
-				}
+		public FastReader() {
+			br = new BufferedReader(new InputStreamReader(System.in));
+		}
 
-				int mRank = mRankMap.get(number);
-				int eRank = eRankMap.get(number);
-				int aRank = aRankMap.get(number);
-
-				if (eRank < mRank) {
-					System.out.println((eRank + 1) + " E");
-				} else if (mRank < cRank) {
-					System.out.println((mRank + 1) + " M");
-				} else if (cRank < aRank) {
-					System.out.println((cRank + 1) + " C");
-				} else {
-					System.out.println((aRank + 1) + " A");
+		String next() {
+			while (st == null || !st.hasMoreElements()) {
+				try {
+					st = new StringTokenizer(br.readLine());
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 			}
+			return st.nextToken();
+		}
 
+		int nextInt() {
+			return Integer.parseInt(next());
+		}
+
+		long nextLong() {
+			return Long.parseLong(next());
+		}
+
+		double nextDouble() {
+			return Double.parseDouble(next());
+		}
+
+		String nextLine() {
+			String str = "";
+			try {
+				str = br.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return str;
 		}
 	}
 
