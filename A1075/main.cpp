@@ -68,7 +68,7 @@ int main() {
             users[id].scores[problemId - 1] = 0;
         }
 
-        if(score == fullScore[problemId - 1]) {
+        if(score == fullScore[problemId - 1] && users[id].scores[problemId - 1] < fullScore[problemId - 1]) {
             users[id].solved++;
         }
 
