@@ -58,13 +58,67 @@ int fib_in_none(int n) {
     return next;
 }
 
+int p_in_none(int x, int n) {
+    int prev = 1;
+    int next = 2 * x;
+    for(int i = 2; i <= n; i++) {
+        int temp = 2 * x * next - 2 * (i - 1) * prev;
+        prev = next;
+        next = temp;
+    }
+
+    if(n == 0) {
+        return prev;
+    }
+
+    return next;
+}
+
+struct stack {
+    int n;
+    double val;
+} st[1000];
+
+double p_in_stack(int x, int n) {
+    int top = -1;
+    double fv1 = 1;
+    double fv2 = 2 * x;
+    for(int i = n; i >= 2; i--) {
+        st[++top].n = i;
+    }
+
+    while(top >= 0) {
+        st[top].val = 2 * x * fv2 - 2 * (st[top].n - 1) * fv1;
+        fv1 = fv2;
+        fv2 = st[top].val;
+        top--;
+    }
+
+    if(n == 0) {
+        return fv1;
+    }
+
+    return fv2;
+}
+
 int main() {
-    int n = 30;
+    int n = 10;
     for(int i = 1; i <= n; i++)
         cout << fib_in_stack(i) << endl;
 
     for(int i = 1; i <= n; i++) {
         cout << fib_in_none(i) << endl;
     }
+
+    cout << "P in none: " << endl;
+    for(int i = 0; i < n; i++) {
+        cout << p_in_none(0, i) << endl;
+    }
+
+    cout << "P in stack" << endl;
+    for(int i = 0; i < n; i++) {
+        cout << p_in_stack(0, i) << endl;
+    }
+
     return 0;
 }
