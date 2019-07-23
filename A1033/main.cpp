@@ -29,6 +29,7 @@ int main() {
         scanf("%lf %lf", &stations[n].unitPrice, &stations[n].distance);
     }
 
+    // This is crucial.
     stations[n].distance = D;
     stations[n].unitPrice = 0;
 
