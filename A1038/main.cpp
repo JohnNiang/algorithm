@@ -35,7 +35,11 @@ int main() {
         result.erase(result.begin());
     }
 
-    cout << result;
+    if(result.size() == 0) {
+        cout << 0;
+    } else {
+        cout << result;
+    }
 
     return 0;
 }
