@@ -21,7 +21,6 @@ void print(LinkedList& list) {
     } else {
         printf(" %d", list.next);
     }
-
     printf("\n");
 }
 
@@ -58,7 +57,6 @@ int reverse(int head, int k) {
 }
 
 int main() {
-
     int head = 0;
     int N = 0;
     int K = 0;
